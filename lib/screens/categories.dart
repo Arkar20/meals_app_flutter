@@ -4,9 +4,7 @@ import 'package:meals_app/data/dummy_data.dart';
 import 'package:meals_app/widgets/category_item.dart';
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key});
-
-
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
