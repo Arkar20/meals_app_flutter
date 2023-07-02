@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/screens/categories.dart';
+import 'package:meals_app/screens/TabLayout.dart';
 
 final theme= ThemeData(
   useMaterial3: true,
@@ -12,6 +12,6 @@ final theme= ThemeData(
 void main() {
   runApp(MaterialApp(
     theme:theme,
-    home:const CategoryScreen()
+    home:const  TabLayout()
   ));
 }
