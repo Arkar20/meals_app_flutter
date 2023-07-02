@@ -12,7 +12,8 @@ class CategoryItem extends StatelessWidget {
    void chooseMeal(BuildContext context,Category category) {  
 
     final filterMeals= dummyMeals.where((meal) => meal.categories.contains(category.id)).toList();
-      Navigator.push(context, MaterialPageRoute(builder: (ctx)=> MealScreen(title: category.title, meals: filterMeals)));
+    
+    Navigator.push(context, MaterialPageRoute(builder: (ctx)=> MealScreen(title: category.title, meals: filterMeals)));
    }
 
   @override
@@ -36,7 +37,7 @@ class CategoryItem extends StatelessWidget {
             ]
             )
         ),
-        child: Text(category.title,),
+        child: Text(category.title),
       ),
     );
   } 
