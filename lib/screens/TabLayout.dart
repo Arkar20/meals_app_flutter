@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/categories.dart';
 import 'package:meals_app/screens/meals.dart';
 
@@ -17,6 +18,22 @@ class _TabLayoutState extends State<TabLayout> {
     setState((){
       selectedScreenIndex=index;
     });
+  }
+
+
+  final List<Meal> favMeals= [];
+
+  void toggleFavourite(Meal meal){
+
+    final exists= favMeals.contains(meal);
+
+    if(exists){
+      favMeals.remove(meal);
+      return;
+    }
+
+     favMeals.add(meal);
+
   }
 
   @override
