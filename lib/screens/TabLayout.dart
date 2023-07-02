@@ -21,17 +21,27 @@ class _TabLayoutState extends State<TabLayout> {
 
   final List<Meal> favMeals = [];
 
+  void showToast(msg){
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(msg))
+    );
+  }
   void toggleFavourite(Meal meal) {
-    
-
     final exists = favMeals.contains(meal);
-print(exists);
     if (exists) {
-      favMeals.remove(meal);
+      setState(() {
+        favMeals.remove(meal);
+      });
+      showToast("Unmark as Favourite");
+
       return;
     }
 
-    favMeals.add(meal);
+    setState(() {
+      favMeals.add(meal);
+    });
+    showToast("Mark as Favourite");
   }
 
   @override
