@@ -26,7 +26,7 @@ class _TabLayoutState extends State<TabLayout> {
     String appTitle="Categories";
 
     if(selectedScreenIndex==1){
-      screen= const MealScreen(title: "Meal Screen",meals: []);
+      screen= const  MealScreen(meals: []);
       appTitle="Your Favourites";
     }
     return Scaffold(
