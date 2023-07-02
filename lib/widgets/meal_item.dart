@@ -53,6 +53,7 @@ class MealItem extends StatelessWidget {
                   ),
                   SizedBox(height: 12,),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       MealItemBadge(label: '${meal.duration} min',icon: Icons.punch_clock,),
                      const SizedBox(width: 12,),
