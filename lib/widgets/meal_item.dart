@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
+import 'package:meals_app/screens/meal_detail.dart';
 import 'package:meals_app/widgets/MealItemBadge.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -15,6 +16,13 @@ class MealItem extends StatelessWidget {
     return meal.affordability.name;
   }
 
+  void navigateToMealDetail(BuildContext context,Meal meal) {
+    // final meal_detail = meal.
+
+    Navigator.push(context, MaterialPageRoute(builder: (ctx)=>  MealDetail(meal:meal)));
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -25,7 +33,7 @@ class MealItem extends StatelessWidget {
 
       child: InkWell(
         onTap: (){
-          print("hello");
+         navigateToMealDetail(context,meal);
         },
         child: Stack(
           children: [
@@ -51,7 +59,7 @@ class MealItem extends StatelessWidget {
                     fontWeight:  FontWeight.bold,
                   ),
                   ),
-                  SizedBox(height: 12,),
+                  const SizedBox(height: 12,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
