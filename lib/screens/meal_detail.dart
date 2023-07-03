@@ -4,11 +4,9 @@ import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/store/FavMealProvider.dart';
 
 class MealDetail extends ConsumerWidget {
-  const MealDetail(
-      {super.key, required this.meal});
+  const MealDetail({super.key, required this.meal});
 
   final Meal meal;
-
 
   void showToast(BuildContext context, String msg) {
     ScaffoldMessenger.of(context).clearSnackBars();
@@ -17,10 +15,9 @@ class MealDetail extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final favs = ref.watch(favMealProvider);
 
-    final favs=ref.watch(favMealProvider);
-
-    bool isFav= favs.contains(meal);
+    bool isFav = favs.contains(meal);
 
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +30,16 @@ class MealDetail extends ConsumerWidget {
 
                 showToast(context, fav ? "Favourited" : "Unfavourited");
               },
-              icon:  Icon(isFav?Icons.star:Icons.star_border))
+              icon: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  transitionBuilder: (child, animation) => RotationTransition(
+                        turns: Tween<double>(
+                          begin: 0.8 ,
+                          end:1
+                        ).animate(animation),
+                        child: child,
+                      ),
+                  child: Icon(isFav ? Icons.star : Icons.star_border,key: ValueKey(isFav),)))
         ],
       ),
       body: SingleChildScrollView(
