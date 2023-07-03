@@ -29,26 +29,36 @@ class _FilterScreenState extends State<FilterScreen> {
       appBar: AppBar(
         title: const Text("Fliter Setting"),
       ),
-      body: Column(
-        children: [
-          SwitchListTile(
-            value: glutenFree,
-            onChanged:handleChangeGluten,
-            title: Text("Gluten free",style: Theme.of(context).textTheme.titleMedium),
-            subtitle: Text('Only Include gluten free meals',style: Theme.of(context).textTheme.bodySmall),
-            activeColor: Theme.of(context).colorScheme.tertiary,
-            contentPadding: EdgeInsets.symmetric(horizontal: 24),
-          ),
-          SwitchListTile(
-            value: isVegan,
-            onChanged:handleChangeVegan,
-            title: Text("Vegetarians",style: Theme.of(context).textTheme.titleMedium),
-            subtitle: Text('Only Include gluten free meals',style: Theme.of(context).textTheme.bodySmall),
-            activeColor: Theme.of(context).colorScheme.tertiary,
-            contentPadding: EdgeInsets.symmetric(horizontal: 24),
-          ),
-         
-        ],
+      body: WillPopScope(
+        onWillPop: () async {
+          Navigator.of(context).pop({
+            isVegan:isVegan,
+            glutenFree:glutenFree
+          });
+
+          return false;
+        },
+        child: Column(
+          children: [
+            SwitchListTile(
+              value: glutenFree,
+              onChanged:handleChangeGluten,
+              title: Text("Gluten free",style: Theme.of(context).textTheme.titleMedium),
+              subtitle: Text('Only Include gluten free meals',style: Theme.of(context).textTheme.bodySmall),
+              activeColor: Theme.of(context).colorScheme.tertiary,
+              contentPadding: EdgeInsets.symmetric(horizontal: 24),
+            ),
+            SwitchListTile(
+              value: isVegan,
+              onChanged:handleChangeVegan,
+              title: Text("Vegetarians",style: Theme.of(context).textTheme.titleMedium),
+              subtitle: Text('Only Include gluten free meals',style: Theme.of(context).textTheme.bodySmall),
+              activeColor: Theme.of(context).colorScheme.tertiary,
+              contentPadding: EdgeInsets.symmetric(horizontal: 24),
+            ),
+           
+          ],
+        ),
       ),
     );
   }
