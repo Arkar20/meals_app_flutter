@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-
+enum FilterEnum {
+   isVegan,
+  glutenFree
+}
 class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});
 
@@ -32,8 +35,8 @@ class _FilterScreenState extends State<FilterScreen> {
       body: WillPopScope(
         onWillPop: () async {
           Navigator.of(context).pop({
-            isVegan:isVegan,
-            glutenFree:glutenFree
+            FilterEnum.glutenFree:glutenFree,
+            FilterEnum.isVegan:isVegan
           });
 
           return false;

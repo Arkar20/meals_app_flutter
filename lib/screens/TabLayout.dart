@@ -5,6 +5,7 @@ import 'package:meals_app/screens/filter.dart';
 import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/widgets/drawer.dart';
 
+
 class TabLayout extends StatefulWidget {
   const TabLayout({super.key});
 
@@ -46,11 +47,13 @@ class _TabLayoutState extends State<TabLayout> {
     showToast("Mark as Favourite");
   }
 
-  void setScreen(screen){
+  void setScreen(screen) async{
     Navigator.of(context).pop();
     if(screen=='filters'){
-       Navigator.push(
+      final result =await   Navigator.push<Map<FilterEnum,bool>>(
         context, MaterialPageRoute(builder: (ctx) =>const FilterScreen()));
+
+      print(result);
     }
   }
 
