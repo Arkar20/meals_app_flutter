@@ -6,6 +6,8 @@ import 'package:meals_app/screens/filter.dart';
 import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/widgets/drawer.dart';
 
+enum FilterEnum { isVegan, glutenFree }
+
 class TabLayout extends StatefulWidget {
   const TabLayout({super.key});
 
@@ -57,7 +59,11 @@ class _TabLayoutState extends State<TabLayout> {
     Navigator.of(context).pop();
     if (screen == 'filters') {
       final result = await Navigator.push<Map<FilterEnum, bool>>(
-          context, MaterialPageRoute(builder: (ctx) => const FilterScreen()));
+          context,
+          MaterialPageRoute(
+              builder: (ctx) => FilterScreen(
+                    filters: filters,
+                  )));
 
       setState(() {
         filters = result ?? initialFilterValue;
@@ -65,16 +71,17 @@ class _TabLayoutState extends State<TabLayout> {
     }
   }
 
+  var glutenFree = false;
+  var isVegan = false;
+
   @override
   Widget build(BuildContext context) {
-
-    final filteredMeals= dummyMeals.where((meal) {
-
-      if(filters[FilterEnum.glutenFree]!=meal.isGlutenFree){
+    final filteredMeals = dummyMeals.where((meal) {
+      if (filters[FilterEnum.glutenFree] != meal.isGlutenFree) {
         return false;
       }
 
-      if(filters[FilterEnum.isVegan]!=meal.isVegan){
+      if (filters[FilterEnum.isVegan] != meal.isVegan) {
         return false;
       }
       return true;

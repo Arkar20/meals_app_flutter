@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-enum FilterEnum {
-   isVegan,
-  glutenFree
-}
+import 'package:meals_app/screens/TabLayout.dart';
+
 class FilterScreen extends StatefulWidget {
-  const FilterScreen({super.key});
+  const FilterScreen({super.key,required this.filters});
 
   @override
   State<FilterScreen> createState() => _FilterScreenState();
+
+  final Map<FilterEnum,bool> filters;
 }
 
 class _FilterScreenState extends State<FilterScreen> {
+
   var glutenFree = false;
   var isVegan = false;
 
@@ -26,6 +27,14 @@ class _FilterScreenState extends State<FilterScreen> {
     });
   }
 
+
+  @override
+  void initState() {
+    super.initState();
+    glutenFree=widget.filters[FilterEnum.glutenFree]!;
+    isVegan=widget.filters[FilterEnum.isVegan]!;
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +58,7 @@ class _FilterScreenState extends State<FilterScreen> {
               title: Text("Gluten free",style: Theme.of(context).textTheme.titleMedium),
               subtitle: Text('Only Include gluten free meals',style: Theme.of(context).textTheme.bodySmall),
               activeColor: Theme.of(context).colorScheme.tertiary,
-              contentPadding: EdgeInsets.symmetric(horizontal: 24),
+              contentPadding:const EdgeInsets.symmetric(horizontal: 24),
             ),
             SwitchListTile(
               value: isVegan,
@@ -57,7 +66,7 @@ class _FilterScreenState extends State<FilterScreen> {
               title: Text("Vegetarians",style: Theme.of(context).textTheme.titleMedium),
               subtitle: Text('Only Include gluten free meals',style: Theme.of(context).textTheme.bodySmall),
               activeColor: Theme.of(context).colorScheme.tertiary,
-              contentPadding: EdgeInsets.symmetric(horizontal: 24),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 24),
             ),
            
           ],
