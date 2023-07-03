@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class BaseDrawer extends StatelessWidget {
-  const BaseDrawer({super.key});
+  const BaseDrawer({super.key, required this.setScreen});
+
+  final void Function(String screen) setScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +16,14 @@ class BaseDrawer extends StatelessWidget {
             Theme.of(context).colorScheme.primaryContainer,
             Theme.of(context).colorScheme.primaryContainer.withOpacity(0.8),
           ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
-           child: Row(
+          child: Row(
             children: [
               Icon(Icons.fastfood,
                   size: 48, color: Theme.of(context).colorScheme.primary),
-               const SizedBox(
+              const SizedBox(
                 width: 12,
               ),
-               Text(
+              const Text(
                 'Cooking up',
               )
             ],
@@ -38,7 +40,7 @@ class BaseDrawer extends StatelessWidget {
                 ),
           ),
           onTap: () {
-            print("hello world");
+            setScreen('meals');
           },
         ),
         ListTile(
@@ -52,7 +54,7 @@ class BaseDrawer extends StatelessWidget {
                 ),
           ),
           onTap: () {
-            print("hello world");
+            setScreen('filters');
           },
         ),
       ],

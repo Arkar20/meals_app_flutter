@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/categories.dart';
+import 'package:meals_app/screens/filter.dart';
 import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/widgets/drawer.dart';
 
@@ -45,6 +46,14 @@ class _TabLayoutState extends State<TabLayout> {
     showToast("Mark as Favourite");
   }
 
+  void setScreen(screen){
+    Navigator.of(context).pop();
+    if(screen=='filters'){
+       Navigator.push(
+        context, MaterialPageRoute(builder: (ctx) =>const FilterScreen()));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget screen = CategoryScreen(
@@ -63,7 +72,7 @@ class _TabLayoutState extends State<TabLayout> {
         appBar: AppBar(
           title: Text(appTitle),
         ),
-        drawer: BaseDrawer(),
+        drawer: BaseDrawer(setScreen:setScreen),
         body: screen,
         bottomNavigationBar: BottomNavigationBar(
           onTap: (index) {
