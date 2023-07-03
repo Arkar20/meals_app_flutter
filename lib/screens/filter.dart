@@ -1,76 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/screens/TabLayout.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meals_app/store/FilterProvider.dart';
 
-class FilterScreen extends StatefulWidget {
-  const FilterScreen({super.key,required this.filters});
+class FilterScreen extends ConsumerStatefulWidget {
+  const FilterScreen({super.key});
 
   @override
-  State<FilterScreen> createState() => _FilterScreenState();
-
-  final Map<FilterEnum,bool> filters;
+  ConsumerState<FilterScreen> createState() => _FilterScreenState();
 }
 
-class _FilterScreenState extends State<FilterScreen> {
-
-  var glutenFree = false;
-  var isVegan = false;
-
-  void handleChangeGluten(isChecked) {
-    setState(() {
-      glutenFree = isChecked;
-    });
-  }
-
-  void handleChangeVegan(isChecked) {
-    setState(() {
-      isVegan = isChecked;
-    });
-  }
-
-
+class _FilterScreenState extends ConsumerState<FilterScreen> {
   @override
   void initState() {
     super.initState();
-    glutenFree=widget.filters[FilterEnum.glutenFree]!;
-    isVegan=widget.filters[FilterEnum.isVegan]!;
-
   }
+
   @override
   Widget build(BuildContext context) {
+    final filter = ref.watch(filterProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Fliter Setting"),
       ),
-      body: WillPopScope(
-        onWillPop: () async {
-          Navigator.of(context).pop({
-            FilterEnum.glutenFree:glutenFree,
-            FilterEnum.isVegan:isVegan
-          });
-
-          return false;
-        },
-        child: Column(
-          children: [
-            SwitchListTile(
-              value: glutenFree,
-              onChanged:handleChangeGluten,
-              title: Text("Gluten free",style: Theme.of(context).textTheme.titleMedium),
-              subtitle: Text('Only Include gluten free meals',style: Theme.of(context).textTheme.bodySmall),
-              activeColor: Theme.of(context).colorScheme.tertiary,
-              contentPadding:const EdgeInsets.symmetric(horizontal: 24),
-            ),
-            SwitchListTile(
-              value: isVegan,
-              onChanged:handleChangeVegan,
-              title: Text("Vegetarians",style: Theme.of(context).textTheme.titleMedium),
-              subtitle: Text('Only Include gluten free meals',style: Theme.of(context).textTheme.bodySmall),
-              activeColor: Theme.of(context).colorScheme.tertiary,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-            ),
-           
-          ],
-        ),
+      body: Column(
+        children: [
+          SwitchListTile(
+            value: filter[FilterEnum.glutenFree]!,
+            onChanged: (value) {
+              ref
+                  .read(filterProvider.notifier)
+                  .setFilterState(FilterEnum.glutenFree, value);
+            },
+            title: Text("Gluten free",
+                style: Theme.of(context).textTheme.titleMedium),
+            subtitle: Text('Only Include gluten free meals',
+                style: Theme.of(context).textTheme.bodySmall),
+            activeColor: Theme.of(context).colorScheme.tertiary,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+          ),
+          SwitchListTile(
+            value: filter[FilterEnum.isVegan]!,
+            onChanged: (value) {
+              ref
+                  .read(filterProvider.notifier)
+                  .setFilterState(FilterEnum.isVegan, value);
+            },
+            title: Text("Vegetarians",
+                style: Theme.of(context).textTheme.titleMedium),
+            subtitle: Text('Only Include gluten free meals',
+                style: Theme.of(context).textTheme.bodySmall),
+            activeColor: Theme.of(context).colorScheme.tertiary,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+          ),
+        ],
       ),
     );
   }
