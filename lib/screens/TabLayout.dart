@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meals_app/data/dummy_data.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/categories.dart';
 import 'package:meals_app/screens/filter.dart';
 import 'package:meals_app/screens/meals.dart';
+import 'package:meals_app/store/FavMealProvider.dart';
 import 'package:meals_app/store/MealProvider.dart';
 import 'package:meals_app/widgets/drawer.dart';
 
@@ -98,6 +98,7 @@ class _TabLayoutState extends ConsumerState<TabLayout> {
     String appTitle = "Categories";
 
     if (selectedScreenIndex == 1) {
+      final favMeals= ref.watch(favMealProvider);
       screen = MealScreen(
         meals: favMeals,
         toggleFavourite: toggleFavourite,
