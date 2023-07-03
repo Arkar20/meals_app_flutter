@@ -1,40 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals_app/models/meal.dart';
+import 'package:meals_app/store/FavMealProvider.dart';
 
-class MealDetail extends StatelessWidget {
-  const MealDetail({super.key, required this.meal,required this.toggleFavourite});
+class MealDetail extends ConsumerWidget {
+  const MealDetail(
+      {super.key, required this.meal, required this.toggleFavourite});
 
   final Meal meal;
 
-    final void Function(Meal meal) toggleFavourite;
+  final void Function(Meal meal) toggleFavourite;
 
+  void showToast(BuildContext context, String msg) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
         actions: [
-          IconButton(onPressed: (){
-           toggleFavourite(meal);
-          }, icon: const Icon(Icons.star))
+          IconButton(
+              onPressed: () {
+                final fav =
+                    ref.read(favMealProvider.notifier).toggleFavourite(meal);
+
+                showToast(context, fav ? "Favourited" : "Unfavourited");
+              },
+              icon: const Icon(Icons.star))
         ],
-        ),
+      ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
+        child: Column(children: [
           Image.network(meal.imageUrl,
               fit: BoxFit.cover, height: 300, width: double.infinity),
           const SizedBox(
             height: 20,
           ),
-          Text('Ingredients',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge!
-                  .copyWith(color: Theme.of(context).colorScheme.primary),
-                  textAlign: TextAlign.end,
-                  ),
+          Text(
+            'Ingredients',
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge!
+                .copyWith(color: Theme.of(context).colorScheme.primary),
+            textAlign: TextAlign.end,
+          ),
           const SizedBox(
             height: 16,
           ),
