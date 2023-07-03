@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/categories.dart';
 import 'package:meals_app/screens/meals.dart';
+import 'package:meals_app/widgets/drawer.dart';
 
 class TabLayout extends StatefulWidget {
   const TabLayout({super.key});
@@ -62,6 +63,7 @@ class _TabLayoutState extends State<TabLayout> {
         appBar: AppBar(
           title: Text(appTitle),
         ),
+        drawer: BaseDrawer(),
         body: screen,
         bottomNavigationBar: BottomNavigationBar(
           onTap: (index) {
