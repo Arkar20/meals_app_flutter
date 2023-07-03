@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals_app/screens/TabLayout.dart';
 
 final theme= ThemeData(
@@ -10,8 +11,10 @@ final theme= ThemeData(
 
 );
 void main() {
-  runApp(MaterialApp(
-    theme:theme,
-    home:const  TabLayout()
+  runApp(ProviderScope(
+    child: MaterialApp(
+      theme:theme,
+      home:const  TabLayout()
+    ),
   ));
 }

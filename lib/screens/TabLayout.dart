@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals_app/data/dummy_data.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/categories.dart';
 import 'package:meals_app/screens/filter.dart';
 import 'package:meals_app/screens/meals.dart';
+import 'package:meals_app/store/MealProvider.dart';
 import 'package:meals_app/widgets/drawer.dart';
 
 enum FilterEnum { isVegan, glutenFree }
 
-class TabLayout extends StatefulWidget {
+class TabLayout extends ConsumerStatefulWidget {
   const TabLayout({super.key});
 
   @override
-  State<TabLayout> createState() => _TabLayoutState();
+  ConsumerState<TabLayout> createState() => _TabLayoutState();
 }
 
 final initialFilterValue = {
@@ -20,7 +22,7 @@ final initialFilterValue = {
   FilterEnum.isVegan: false
 };
 
-class _TabLayoutState extends State<TabLayout> {
+class _TabLayoutState extends ConsumerState<TabLayout> {
   int selectedScreenIndex = 0;
 
   Map<FilterEnum, bool> filters = initialFilterValue;
@@ -76,12 +78,14 @@ class _TabLayoutState extends State<TabLayout> {
 
   @override
   Widget build(BuildContext context) {
-    final filteredMeals = dummyMeals.where((meal) {
-      if (filters[FilterEnum.glutenFree] != meal.isGlutenFree) {
+    final meals = ref.watch(mealProvider);
+
+    final filteredMeals = meals.where((meal) {
+      if (filters[FilterEnum.glutenFree]! && !meal.isGlutenFree) {
         return false;
       }
 
-      if (filters[FilterEnum.isVegan] != meal.isVegan) {
+      if (filters[FilterEnum.isVegan]! && !meal.isVegan) {
         return false;
       }
       return true;
