@@ -8,12 +8,10 @@ class CategoryItem extends StatelessWidget {
   const CategoryItem(
       {super.key,
       required this.category,
-      required this.toggleFavourite,
       required this.meals});
 
   final Category category;
 
-  final void Function(Meal meal) toggleFavourite;
   final List<Meal> meals;
 
   void chooseMeal(BuildContext context, Category category) {
@@ -27,7 +25,7 @@ class CategoryItem extends StatelessWidget {
             builder: (ctx) => MealScreen(
                   title: category.title,
                   meals: filterMeals,
-                  toggleFavourite: toggleFavourite,
+                 
                 )));
   }
 

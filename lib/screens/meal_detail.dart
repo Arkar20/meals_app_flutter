@@ -5,11 +5,10 @@ import 'package:meals_app/store/FavMealProvider.dart';
 
 class MealDetail extends ConsumerWidget {
   const MealDetail(
-      {super.key, required this.meal, required this.toggleFavourite});
+      {super.key, required this.meal});
 
   final Meal meal;
 
-  final void Function(Meal meal) toggleFavourite;
 
   void showToast(BuildContext context, String msg) {
     ScaffoldMessenger.of(context).clearSnackBars();

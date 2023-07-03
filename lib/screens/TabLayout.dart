@@ -35,27 +35,9 @@ class _TabLayoutState extends ConsumerState<TabLayout> {
 
   final List<Meal> favMeals = [];
 
-  void showToast(msg) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
-  }
 
-  void toggleFavourite(Meal meal) {
-    final exists = favMeals.contains(meal);
-    if (exists) {
-      setState(() {
-        favMeals.remove(meal);
-      });
-      showToast("Unmark as Favourite");
 
-      return;
-    }
-
-    setState(() {
-      favMeals.add(meal);
-    });
-    showToast("Mark as Favourite");
-  }
+  
 
   void setScreen(screen) async {
     Navigator.of(context).pop();
@@ -93,7 +75,6 @@ class _TabLayoutState extends ConsumerState<TabLayout> {
 
     Widget screen = CategoryScreen(
       meals: filteredMeals,
-      toggleFavourite: toggleFavourite,
     );
     String appTitle = "Categories";
 
@@ -101,7 +82,6 @@ class _TabLayoutState extends ConsumerState<TabLayout> {
       final favMeals= ref.watch(favMealProvider);
       screen = MealScreen(
         meals: favMeals,
-        toggleFavourite: toggleFavourite,
       );
       appTitle = "Your Favourites";
     }
