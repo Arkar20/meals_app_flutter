@@ -39,10 +39,11 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen>
 
     return AnimatedBuilder(
       animation: animationController,
-      builder: ((context, child) => Padding(
-            padding: EdgeInsets.only(top:100-animationController.value*100),
-            child: child,
-          )),
+      builder: ((context, child) => SlideTransition(position: Tween(
+        end: const Offset(0,0),
+        begin:const  Offset(0.5, 0),
+      ).animate(CurvedAnimation(curve: Curves.easeInCubic,parent: animationController)),
+      child: child,)),
       child: GridView(
         padding: const EdgeInsets.all(24),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
